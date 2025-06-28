@@ -21,4 +21,4 @@ databases:
    - key: MAX_CLIENT_CONN
      value: 500
    - key: DEFAULT_POOL_SIZE
-     value: 5
+     value: 50
