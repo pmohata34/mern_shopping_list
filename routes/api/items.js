@@ -17,11 +17,16 @@ router.get('/', (req, res) => {
 // @desc    Create An Item
 // @access  Public
 router.post('/', (req, res) => {
-    const newItem = new Item({
-        name: req.body.name
-    });
+  const newItem = new Item({
+    name: req.body.name  // 👈 Is req.body.name undefined?
+  });
 
-    newItem.save().then(item => res.json(item));
+  newItem.save()
+    .then(item => res.json(item))
+    .catch(err => {
+      console.error('Save error:', err.message);
+      res.status(500).json({ success: false, error: err.message });
+    });
 });
 
 // @route   DELETE api/items/:id

@@ -9,15 +9,14 @@ const app = express();
 
 //Body parser middleware
 app.use(bodyParser.json());
-
+app.use(express.json());
 //DB Config
 const db = require('./config/keys').mongoURI;
 
 // Connect to MongoDB
-mongoose
-    .connect(db)
-    .then(() => console.log('MongoDB Connected...'))
-    .catch(err => console.log(err));
+mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
+  .then(() => console.log('MongoDB connected'))
+  .catch(err => console.error('MongoDB connection error:', err.message));
 
 // Use Routes
 app.use('/api/items', item);
