@@ -1,0 +1,17 @@
+# Root-level Node dependencies
+node_modules/
+
+# Client dependencies
+client/node_modules/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS files
+.DS_Store
+
+# Environment variables
+.env
+

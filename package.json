@@ -1,0 +1,26 @@
+{
+  "name": "mern_shopping_list",
+  "version": "1.0.0",
+  "description": "Shopping list built with the Mern Stack",
+  "main": "server.js",
+  "scripts": {
+    "client-install": "cd client && npm install",
+    "start": "node server.js",
+    "server": "nodemon server.js",
+    "client": "cd client && npm start",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+  },
+  "author": "Pranjal",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "concurrently": "^9.2.0",
+    "express": "^5.1.0",
+    "mongoose": "^8.16.0",
+    "redux-devtools-extension": "^2.13.9"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.10"
+  }
+}
