@@ -10,7 +10,10 @@ databases:
    plan: standard
    repo: https://github.com/render-oss/docker-pgbouncer
    envVars:
-   - key: DATABASE_URLdatabases:
+   - key: mongodb+srv://pranjal:pranjal123@cluster0.inffm46.mongodb.net/?retryWrites=true&w=majority
+     fromDatabase:
+       name: mysite
+       property: connectionString
   - name: mysite
     databaseName: mysite
     user: mysite
