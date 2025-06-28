@@ -18,6 +18,9 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .then(() => console.log('MongoDB connected'))
   .catch(err => console.error('MongoDB connection error:', err.message));
 
+// Register the item route
+  console.log('Registering route: /api/items');
+
 // Use Routes
 app.use('/api/items', item);
 
@@ -27,8 +30,10 @@ if (process.env.NODE_ENV === 'production') {
     app.use(express.static(path.join(__dirname, 'client', 'build')));
 
     app.get('*', (req, res) => {
-        res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
+      console.log('Wildcard route hit:', req.originalUrl);
+      res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'));
     });
+
 }
 
 
