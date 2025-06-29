@@ -1,5 +1,5 @@
 const express = require('express');
-const bodyParser = require('body-parser');
+// const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
 const path = require('path');
 const fs = require('fs');
@@ -10,7 +10,7 @@ const item = require('./routes/api/items'); // Import the Item route
 const app = express();
 
 // Body parser middleware
-app.use(bodyParser.json());
+// app.use(bodyParser.json());
 app.use(express.json());
 
 // DB Config

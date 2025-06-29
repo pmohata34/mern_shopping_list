@@ -22,6 +22,7 @@ router.post('/', (req, res) => {
   if (!name || typeof name !== 'string' || !name.trim()) {
     return res.status(400).json({ error: 'Item name is required' });
   }
+  console.log('Incoming data:', req.body);
 
   const newItem = new Item({ name: name.trim() });
 

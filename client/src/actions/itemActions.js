@@ -20,7 +20,9 @@ export const getItems = () => (dispatch) => {
 // Add Item
 export const addItem = (newItem) => dispatch => {
   axios
-    .post('/api/items', newItem)
+    .post('/api/items', newItem, {
+      headers: { 'Content-Type': 'application/json' }
+    })
     .then((res) =>
       dispatch({
         type: ADD_ITEM,
@@ -28,10 +30,14 @@ export const addItem = (newItem) => dispatch => {
       })
     )
     .catch((err) => {
-      console.error('Error adding item:', err);
+      const msg =
+        err.response?.data?.error ||
+        err.response?.data ||
+        err.message ||
+        'Unknown error';
+      console.error('Error adding item:', msg);
     });
 };
-
 // Delete Item
 export const deleteItem = id => dispatch => {
   axios
