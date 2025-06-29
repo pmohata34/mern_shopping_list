@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 module.exports = {
-  mongoURI: "mongodb+srv://pranjal:pranjal123@cluster0.inffm46.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
-}
+  mongoURI: process.env.MONGO_URI
+};
