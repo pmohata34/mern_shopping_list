@@ -4,6 +4,8 @@
   "description": "Shopping list built with the Mern Stack",
   "main": "server.js",
   "scripts": {
+    "client-build": "npm run build --prefix client",
+    "postinstall": "npm run client-install && npm run client-build",
     "client-install": "cd client && npm install",
     "start": "node server.js",
     "server": "nodemon server.js",
