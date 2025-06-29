@@ -22,7 +22,7 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   console.log('Registering route: /api/items');
 
 // Use Routes
-app.use('/api/items', item);
+// app.use('/api/items', item);
 
 //serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
