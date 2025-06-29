@@ -17,9 +17,13 @@ router.get('/', (req, res) => {
 // @desc    Create An Item
 // @access  Public
 router.post('/', (req, res) => {
-  const newItem = new Item({
-    name: req.body.name  // 👈 Is req.body.name undefined?
-  });
+  const { name } = req.body;
+
+  if (!name || typeof name !== 'string' || !name.trim()) {
+    return res.status(400).json({ error: 'Item name is required' });
+  }
+
+  const newItem = new Item({ name: name.trim() });
 
   newItem.save()
     .then(item => res.json(item))
