@@ -19,10 +19,10 @@ mongoose.connect(db, { useNewUrlParser: true, useUnifiedTopology: true })
   .catch(err => console.error('MongoDB connection error:', err.message));
 
 // Register the item route
-  console.log('Registering route: /api/items');
+console.log("Registering:", `/api/items`);
 
 // Use Routes
-// app.use('/api/items', item);
+app.use('/api/items', item);
 
 //serve static assets if in production
 if (process.env.NODE_ENV === 'production') {
