@@ -12,6 +12,7 @@ import {
 } from "reactstrap";
 import { connect } from "react-redux";
 import { addItem } from "../actions/itemActions";
+import { toast } from "react-toastify";
 
 class ItemModal extends Component {
   state = {
@@ -32,23 +33,28 @@ class ItemModal extends Component {
   onSubmit = (e) => {
     e.preventDefault();
 
-    const newItem = {
-      name: this.state.name,
-    };
-    // Add item via AddItem action
+    const trimmed = this.state.name.trim();
+    if (!trimmed) {
+      toast.warning("Please enter an item name");
+      return;
+    }
+
+    const newItem = { name: trimmed };
     this.props.addItem(newItem);
-    // Close modal after submit
-    this.toggle(); 
+
+    this.setState({ name: "" });
+    this.toggle();
+    toast.success("Item added!");
   };
 
   render() {
     return (
       <div>
-        <Button color="dark" style={{ marginBottom: "2rem" }} onClick={this.toggle}>
+        <Button color="dark" className="mb-3" onClick={this.toggle}>
           Add Item
         </Button>
 
-        <Modal isOpen={this.state.modal} toggle={this.toggle}>
+        <Modal isOpen={this.state.modal} toggle={this.toggle} centered>
           <ModalHeader toggle={this.toggle}>Add to Shopping List</ModalHeader>
           <ModalBody>
             <Form onSubmit={this.onSubmit}>
@@ -58,11 +64,17 @@ class ItemModal extends Component {
                   type="text"
                   name="name"
                   id="item"
-                  placeholder="Add shopping item"
+                  placeholder="Enter item name"
+                  value={this.state.name}
                   onChange={this.onChange}
+                  autoFocus
                   required
                 />
-                <Button color="dark" style={{ marginTop: "2rem" }} block>
+                <Button
+                  color="dark"
+                  className="mt-3 w-100"
+                  type="submit"
+                >
                   Add Item
                 </Button>
               </FormGroup>

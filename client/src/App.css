@@ -1,21 +1,49 @@
+/* Button styling */
 .remove-btn {
-    margin-right: 0.5rem;
+  margin-right: 0.5rem;
+  transition: background-color 0.2s ease;
 }
 
+.remove-btn:hover {
+  background-color: #dc3545;
+  color: white;
+}
+
+/* Fade animation classes */
 .fade-enter {
-    opacity: 0.01;
+  opacity: 0;
+  transform: scale(0.95);
 }
 
 .fade-enter-active {
-    opacity: 1;
-    transition: opacity 300ms ease-in;
+  opacity: 1;
+  transform: scale(1);
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
 }
 
 .fade-exit {
-    opacity: 1;
+  opacity: 1;
+  transform: scale(1);
 }
 
 .fade-exit-active {
-    opacity: 0.01;
-    transition: opacity 300ms ease-in;
+  opacity: 0;
+  transform: scale(0.95);
+  transition: opacity 300ms ease-in, transform 300ms ease-in;
+}
+
+/* Navbar styles */
+.navbar-brand {
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  font-size: 1.25rem;
+}
+
+.nav-link {
+  font-size: 0.95rem;
+  transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+  color: #f8f9fa;
 }

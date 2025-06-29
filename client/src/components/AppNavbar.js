@@ -1,49 +1,41 @@
-import React, { Component } from 'react';
-import{
-    Collapse,
-    Navbar,
-    NavbarToggler,
-    NavbarBrand,
-    Nav,
-    NavItem,
-    NavLink,
-    Container,
-} from 'reactstrap';
+import React, { useState } from 'react';
+import {
+  Navbar,
+  Container,
+  Nav,
+  NavbarToggle,
+  Collapse
+} from 'react-bootstrap';
+import { FaShoppingBasket, FaGithub } from 'react-icons/fa';
 
-class AppNavbar extends Component {
-    constructor(props) {
-        super(props);
-        // this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false,
-        };
-    }
+const AppNavbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
 
-    toggle = () => {
-        this.setState({
-            isOpen: !this.state.isOpen,
-        });
-    };
+  const toggleNavbar = () => setIsOpen(!isOpen);
 
-    render() {
-        return (
-            <div>
-                <Navbar color="dark" dark expand="sm" className="mb-5">
-                    <Container>
-                        <NavbarBrand href="/">Shopping List</NavbarBrand>
-                        <NavbarToggler onClick={this.toggle} />
-                        <Collapse isOpen={this.state.isOpen} navbar>
-                            <Nav className="ml-auto" navbar>
-                                <NavItem>
-                                    <NavLink href="">Github</NavLink>
-                                </NavItem>
-                            </Nav>
-                        </Collapse>
-                    </Container>
-                </Navbar>
-            </div>
-        );
-    }
-}
+  return (
+    <Navbar bg="dark" variant="dark" expand="md" sticky="top" className="shadow-sm mb-4">
+      <Container>
+        <Navbar.Brand href="/" className="d-flex align-items-center">
+          <FaShoppingBasket className="me-2" />
+          Shopping List
+        </Navbar.Brand>
+        <NavbarToggle onClick={toggleNavbar} />
+        <Navbar.Collapse in={isOpen}>
+          <Nav className="ms-auto">
+            <Nav.Link
+              href="https://github.com/pmohata34/mern_shopping_list"
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <FaGithub className="me-1" />
+              GitHub
+            </Nav.Link>
+          </Nav>
+        </Navbar.Collapse>
+      </Container>
+    </Navbar>
+  );
+};
 
 export default AppNavbar;
