@@ -8,10 +8,15 @@ import store from './store'; // Assuming you have a store.js file that exports y
 import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer } from 'react-toastify';
-
+import { loadUser } from './actions/authActions'; // Import the loadUser action
 import './App.css';
 
 class App extends Component {
+  componentDidMount() {
+    // Load user when the component mounts
+    store.dispatch(loadUser());
+  }
+  
   render() {
     return (
       <Provider store={store}>
