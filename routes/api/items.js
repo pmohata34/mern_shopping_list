@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const auth = require('../../middleware/auth'); // Import auth middleware if needed
 
 // Item Model
 const Item = require('../../models/Item');
@@ -15,8 +16,8 @@ router.get('/', (req, res) => {
 
 // @route   Post api/items
 // @desc    Create An Item
-// @access  Public
-router.post('/', (req, res) => {
+// @access  Private
+router.post('/', auth, (req, res) => {
   const { name } = req.body;
 
   if (!name || typeof name !== 'string' || !name.trim()) {
@@ -36,8 +37,8 @@ router.post('/', (req, res) => {
 
 // @route   DELETE api/items/:id
 // @desc    Delete An Item
-// @access  Public
-router.delete('/:id', async (req, res) => {
+// @access  Private
+router.delete('/:id', auth, async (req, res) => {
   try {
     const item = await Item.findByIdAndDelete(req.params.id);
     if (!item) return res.status(404).json({ success: false, message: 'Item not found' });
