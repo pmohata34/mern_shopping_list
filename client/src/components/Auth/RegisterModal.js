@@ -22,7 +22,7 @@ class RegisterModal extends Component {
     state = {
         modal: false,
         name: "",
-        emai: "",
+        email: "",
         password: "",
         msg: null
     };
@@ -36,13 +36,10 @@ class RegisterModal extends Component {
     
     componentDidUpdate(prevProps) {
         const { error } = this.props;
-        if (error !== prevProps.error) {
+        if (error !== prevProps.error && this.state.modal) {
             // Check for registration error
             if (error.id === "REGISTER_FAIL") {
-                toast.error(error.msg.msg);
-            }
-            else {
-                toast.error("An error occurred. Please try again.");
+                toast.error(error.msg.msg || "Register failed. Please check your credentials.");
             }
         }
 

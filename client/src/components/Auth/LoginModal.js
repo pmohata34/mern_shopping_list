@@ -21,7 +21,7 @@ import { clearErrors } from "../../actions/errorActions"; // Assuming you have a
 class LoginModal extends Component {
     state = {
         modal: false,
-        emai: "",
+        email: "",
         password: "",
         msg: null
     };
@@ -35,13 +35,10 @@ class LoginModal extends Component {
     
     componentDidUpdate(prevProps) {
         const { error } = this.props;
-        if (error !== prevProps.error) {
-            // Check for registration error
+        if (error !== prevProps.error && this.state.modal) {
+            // Check for login error
             if (error.id === "LOGIN_FAIL") {
-                toast.error(error.msg.msg);
-            }
-            else {
-                toast.error("An error occurred. Please try again.");
+                toast.error(error.msg.msg || "Login failed. Please check your credentials.");
             }
         }
 
