@@ -3,10 +3,13 @@ import {
   Navbar,
   Container,
   Nav,
+  NavItem,
   NavbarToggle,
   Collapse
 } from 'react-bootstrap';
 import { FaShoppingBasket, FaGithub } from 'react-icons/fa';
+import RegisterModal from './Auth/RegisterModal';
+import Logout from './Auth/LogOut';
 
 const AppNavbar = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,15 +25,13 @@ const AppNavbar = () => {
         </Navbar.Brand>
         <NavbarToggle onClick={toggleNavbar} />
         <Navbar.Collapse in={isOpen}>
-          <Nav className="ms-auto">
-            <Nav.Link
-              href="https://github.com/pmohata34/mern_shopping_list"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              <FaGithub className="me-1" />
-              GitHub
-            </Nav.Link>
+          <Nav className="ms-auto" navbar>
+            <NavItem>
+              <RegisterModal />
+              <NavItem>
+                <Logout />
+              </NavItem>
+            </NavItem>
           </Nav>
         </Navbar.Collapse>
       </Container>
