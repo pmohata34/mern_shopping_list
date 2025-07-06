@@ -1,42 +1,83 @@
-import React, { useState } from 'react';
+import React, { Component, Fragment } from 'react';
 import {
   Navbar,
-  Container,
+  NavbarToggler,
+  Collapse,
   Nav,
   NavItem,
-  NavbarToggle,
-  Collapse
-} from 'react-bootstrap';
-import { FaShoppingBasket, FaGithub } from 'react-icons/fa';
+  NavbarBrand,
+  Container
+} from 'reactstrap';
+import { connect } from 'react-redux';
+import { FaShoppingBasket } from 'react-icons/fa';
 import RegisterModal from './Auth/RegisterModal';
-import Logout from './Auth/LogOut';
+import LoginModal from './Auth/LoginModal';
+import Logout from './Auth/Logout';
+import PropTypes from 'prop-types';
 
-const AppNavbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
+class AppNavbar extends Component {
+  state = {
+    isOpen: false
+  };
 
-  const toggleNavbar = () => setIsOpen(!isOpen);
+  static propTypes = {
+    auth: PropTypes.object.isRequired
+  };
 
-  return (
-    <Navbar bg="dark" variant="dark" expand="md" sticky="top" className="shadow-sm mb-4">
-      <Container>
-        <Navbar.Brand href="/" className="d-flex align-items-center">
-          <FaShoppingBasket className="me-2" />
-          Shopping List
-        </Navbar.Brand>
-        <NavbarToggle onClick={toggleNavbar} />
-        <Navbar.Collapse in={isOpen}>
-          <Nav className="ms-auto" navbar>
-            <NavItem>
-              <RegisterModal />
-              <NavItem>
-                <Logout />
-              </NavItem>
-            </NavItem>
-          </Nav>
-        </Navbar.Collapse>
-      </Container>
-    </Navbar>
-  );
-};
+  toggleNavbar = () => {
+    this.setState({ isOpen: !this.state.isOpen });
+  };
 
-export default AppNavbar;
+  render() {
+    const { isAuthenticated, user } = this.props.auth || {};
+
+    const authLinks = (
+      <Fragment>
+        <NavItem color='black'>
+          <span className=" navbar-text mr-2">
+            <strong>{user ? `Welcome, ${user.name}` : ''}</strong>
+          </span>
+        </NavItem>
+        <NavItem>
+          <Logout />
+        </NavItem>
+      </Fragment>
+    );
+
+    const guestLinks = (
+      <Fragment>
+        <NavItem>
+          <RegisterModal />
+        </NavItem>
+        <NavItem>
+          <LoginModal />
+        </NavItem>
+      </Fragment>
+    );
+
+    return (
+      <div>
+        <Navbar bg="dark" variant="dark" expand="md" sticky="top" className="shadow-sm mb-4">
+        <Container>
+          <NavbarBrand href="/" className="d-flex align-items-center">
+            <FaShoppingBasket className="me-2" style={{ fontSize: '1.2rem' }} />
+            <span style={{ fontSize: '1rem' }}>Shopping List</span>
+          </NavbarBrand>
+            <NavbarToggler onClick={this.toggleNavbar} />
+            <Collapse isOpen={this.state.isOpen} navbar>
+              <Nav className="ms-auto d-flex align-items-center gap-2" navbar>
+                {isAuthenticated ? authLinks : guestLinks}
+              </Nav>
+            </Collapse>
+          </Container>
+        </Navbar>
+      </div>
+    );
+  }
+}
+
+const mapStateToProps = (state) => ({
+  auth: state.auth
+});
+
+export default connect(mapStateToProps)(AppNavbar);

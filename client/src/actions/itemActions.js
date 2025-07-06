@@ -1,5 +1,7 @@
 import axios from 'axios';
 import { GET_ITEMS, ADD_ITEM, DELETE_ITEM, ITEM_LOADING } from './types';
+import { tokenConfig } from './authActions';
+import { returnErrors } from './errorActions';
 
 // Get Items (from server)
 export const getItems = () => (dispatch) => {
@@ -18,11 +20,9 @@ export const getItems = () => (dispatch) => {
 };
 
 // Add Item
-export const addItem = (newItem) => dispatch => {
+export const addItem = (newItem) => (dispatch, getState) => {
   axios
-    .post('/api/items', newItem, {
-      headers: { 'Content-Type': 'application/json' }
-    })
+    .post('/api/items', newItem, tokenConfig(getState))
     .then((res) =>
       dispatch({
         type: ADD_ITEM,
@@ -39,9 +39,9 @@ export const addItem = (newItem) => dispatch => {
     });
 };
 // Delete Item
-export const deleteItem = id => dispatch => {
+export const deleteItem = id => (dispatch, getState) => {
   axios
-    .delete(`/api/items/${id}`)
+    .delete(`/api/items/${id}`, tokenConfig(getState))
     .then(res =>
       dispatch({
         type: DELETE_ITEM,

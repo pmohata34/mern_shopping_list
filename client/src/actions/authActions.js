@@ -2,10 +2,10 @@ import axios from "axios";
 import { returnErrors } from "./errorActions";
 
 import {
-    USER_LOADING,
-    USER_LOADED,
-    AUTH_ERROR,
     LOGIN_SUCCESS,
+    USER_LOADED,
+    USER_LOADING,
+    AUTH_ERROR,
     LOGIN_FAIL,
     REGISTER_SUCCESS,
     REGISTER_FAIL,
@@ -59,6 +59,36 @@ export const register = ({ name, email, password }) => dispatch => {
             );
             dispatch({
                 type: REGISTER_FAIL
+            });
+        });
+};
+
+//Login User
+export const login = ({ email, password }) => dispatch => {
+    //Headers
+    const config = {
+        headers: {
+            "Content-Type": "application/json"
+        }
+    };
+
+    //Request body
+    const body = JSON.stringify({ email, password });
+
+    axios.post("/api/auth", body, config)
+        .then(res => {
+            dispatch({
+                type: LOGIN_SUCCESS,
+                payload: res.data
+            });
+            localStorage.setItem('token', res.data.token);
+        })
+        .catch(err => {
+            dispatch(
+                returnErrors(err.response.data, err.response.status, "LOGIN_FAIL")
+            );
+            dispatch({
+                type: LOGIN_FAIL
             });
         });
 };
